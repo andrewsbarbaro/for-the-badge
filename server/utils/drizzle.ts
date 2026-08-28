@@ -18,4 +18,5 @@ export type {
     Account, InsertAccount, QueryId, AccountHash,
     Badge, InsertBadge, BadgeId,
     SubmittedBadge, InsertSubmittedBadge, SubmissionId, SubmissionStatus,
+    HomepagePlacement, InsertHomepagePlacement, PlacementId,
 } from "../database/schemas";

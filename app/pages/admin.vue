@@ -118,6 +118,26 @@ the Ui should look more like this
                             </div>
                         </div>
 
+                        <div class="action-card" @click="openHomepagePlacements">
+                            <div class="card-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3,3H21V21H3V3M5,5V19H19V5H5M9,7H7V9H9V7M11,7H17V9H11V7M7,11H9V13H7V11M11,11H17V13H11V11M7,15H9V17H7V15M11,15H17V17H11V15Z" />
+                                </svg>
+                            </div>
+                            <div class="card-content">
+                                <h3>Badge Board Placements</h3>
+                                <p>
+                                    Review homepage pixel purchases
+                                    <span v-if="pendingPlacements.length" class="pending-badge-count">{{ pendingPlacements.length }} pending</span>
+                                </p>
+                            </div>
+                            <div class="card-arrow">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                                </svg>
+                            </div>
+                        </div>
+
                         <div class="action-card" @click="showFeedbackManagement = true">
                             <div class="card-icon">
                                 <svg
@@ -388,6 +408,66 @@ the Ui should look more like this
                         </div>
                     </div>
 
+                    <!-- Badge Board Placements Panel -->
+                    <div v-if="showHomepagePlacements" class="management-panel">
+                        <div class="panel-header">
+                            <h2>Badge Board Placements</h2>
+                            <button class="close-btn" @click="showHomepagePlacements = false">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div v-if="placementsLoading" class="panel-loading">
+                            <div class="spinner" />
+                            <p>Loading pending placements…</p>
+                        </div>
+
+                        <div v-else-if="pendingPlacements.length === 0" class="no-badges">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z" />
+                            </svg>
+                            <h3>No Pending Placements</h3>
+                            <p>All paid placements have been reviewed.</p>
+                        </div>
+
+                        <div v-else class="placements-list">
+                            <p class="placements-sla-note">⚠️ 12-hour approval SLA — buyers are waiting.</p>
+                            <div v-for="p in pendingPlacements" :key="p.id" class="placement-review-card">
+                                <div class="placement-badge-preview">
+                                    <!-- eslint-disable-next-line vue/no-v-html -->
+                                    <div v-html="p.badgeSvg" />
+                                </div>
+                                <div class="placement-meta">
+                                    <strong>{{ p.ownerName }}</strong>
+                                    <span v-if="p.linkUrl" class="placement-link">{{ p.linkUrl }}</span>
+                                    <span class="placement-info">
+                                        Grid: col {{ p.gridX }}, row {{ p.gridY }} · {{ p.gridWidth }}×{{ p.gridHeight }} cells · {{ p.pixelCount.toLocaleString() }} pixels
+                                    </span>
+                                    <span class="placement-info">Paid: ${{ (p.amountPaidCents / 100).toFixed(2) }}</span>
+                                    <span class="placement-info">Purchased: {{ p.purchasedAt ? formatDate(p.purchasedAt) : 'Unknown' }}</span>
+                                </div>
+                                <div class="badge-actions">
+                                    <button
+                                        class="btn-approve"
+                                        :disabled="processingPlacementId === p.id"
+                                        @click="handleApprovePlacement(p.id)"
+                                    >
+                                        {{ processingPlacementId === p.id ? '…' : 'Approve' }}
+                                    </button>
+                                    <button
+                                        class="btn-deny"
+                                        :disabled="processingPlacementId === p.id"
+                                        @click="handleDenyPlacement(p.id)"
+                                    >
+                                        {{ processingPlacementId === p.id ? '…' : 'Deny + Refund' }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Feedback Management Panel -->
                     <div v-if="showFeedbackManagement" class="management-panel">
                         <div class="panel-header">
@@ -566,6 +646,7 @@ const accessDenied = computed(() => !isAuthenticated.value || !isAdmin.value);
 const showAccountManagement = ref(false);
 const showBadgeApprovals = ref(false);
 const showFeedbackManagement = ref(false);
+const showHomepagePlacements = ref(false);
 
 // Account management state
 const accounts = ref([]);
@@ -619,6 +700,11 @@ const badgesLoading = ref(false);
 const badgesError = ref(null);
 const processingBadgeId = ref(null);
 const actionType = ref(null);
+
+// Homepage placement review state
+const pendingPlacements = ref([]);
+const placementsLoading = ref(false);
+const processingPlacementId = ref(null);
 
 
 // Notification state
@@ -761,6 +847,74 @@ const handleDenyBadge = async (submissionId) =>
     {
         processingBadgeId.value = null;
         actionType.value = null;
+    }
+};
+
+// Homepage placement review methods
+const loadPendingPlacements = async () =>
+{
+    placementsLoading.value = true;
+    try
+    {
+        const { $csrfFetch } = useNuxtApp();
+        const data = await $csrfFetch('/api/admin/homepage/pending');
+        pendingPlacements.value = data.placements;
+    }
+    catch (error)
+    {
+        console.error('Failed to load pending placements:', error);
+        showNotification('Error', 'Failed to load pending placements');
+    }
+    finally
+    {
+        placementsLoading.value = false;
+    }
+};
+
+const openHomepagePlacements = async () =>
+{
+    showHomepagePlacements.value = true;
+    await loadPendingPlacements();
+};
+
+const handleApprovePlacement = async (placementId) =>
+{
+    processingPlacementId.value = placementId;
+    try
+    {
+        const { $csrfFetch } = useNuxtApp();
+        await $csrfFetch('/api/admin/homepage/approve', { method: 'POST', body: { placementId } });
+        pendingPlacements.value = pendingPlacements.value.filter(p => p.id !== placementId);
+        showNotification('Approved', 'Placement is now live on the Badge Board.');
+    }
+    catch (error)
+    {
+        showNotification('Error', getErrorMessage(error, 'Failed to approve placement'));
+    }
+    finally
+    {
+        processingPlacementId.value = null;
+    }
+};
+
+const handleDenyPlacement = async (placementId) =>
+{
+    if (!confirm('Deny this placement? Remember to issue the Stripe refund manually.')) return;
+    processingPlacementId.value = placementId;
+    try
+    {
+        const { $csrfFetch } = useNuxtApp();
+        await $csrfFetch('/api/admin/homepage/deny', { method: 'POST', body: { placementId } });
+        pendingPlacements.value = pendingPlacements.value.filter(p => p.id !== placementId);
+        showNotification('Denied', 'Placement denied. Issue refund via Stripe dashboard.');
+    }
+    catch (error)
+    {
+        showNotification('Error', getErrorMessage(error, 'Failed to deny placement'));
+    }
+    finally
+    {
+        processingPlacementId.value = null;
     }
 };
 
@@ -1682,6 +1836,18 @@ definePageMeta({ name: "Admin Portal" });
   cursor: not-allowed;
   transform: none;
 }
+
+/* Homepage placement review */
+.placements-list { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.placements-sla-note { font-size: 0.875rem; font-weight: 600; color: #dc2626; margin: 0 0 0.5rem; }
+.placement-review-card { border: 1px solid #e5e7eb; border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; background: #fff; }
+.placement-badge-preview { padding: 0.5rem; background: #f9fafb; border-radius: 6px; display: flex; align-items: center; }
+.placement-badge-preview :deep(svg) { max-width: 100%; height: auto; display: block; }
+.placement-meta { display: flex; flex-direction: column; gap: 0.2rem; }
+.placement-meta strong { font-size: 0.9375rem; color: #000; }
+.placement-link { font-size: 0.8125rem; color: #6b7280; word-break: break-all; }
+.placement-info { font-size: 0.8125rem; color: #9ca3af; }
+.pending-badge-count { margin-left: 0.5rem; background: #ef4444; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 0.125rem 0.4rem; border-radius: 100px; }
 
 /* Feedback Management Styles */
 .feedback-content {

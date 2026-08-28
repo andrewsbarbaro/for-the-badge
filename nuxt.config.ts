@@ -13,7 +13,18 @@ export default defineNuxtConfig(
             "nuxt-skew-protection",
             "@nuxtjs/sitemap",
             "@nuxtjs/robots",
+            "@unlok-co/nuxt-stripe",
         ],
+        stripe: {
+            server: {
+                key: process.env.STRIPE_SECRET_KEY || "",
+                options: {},
+            },
+            client: {
+                key: process.env.STRIPE_PUBLISHABLE_KEY || "",
+                options: {},
+            },
+        },
         ssr: true,
         app: {
             head: {
@@ -49,6 +60,14 @@ export default defineNuxtConfig(
             passwordPepper: process.env.PASSWORD_PEPPER,
             accountHmacSecret: process.env.ACCOUNT_HMAC_SECRET,
             badgeEncryptionKey: process.env.BADGE_ENCRYPTION_KEY,
+            stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+            stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+            stripeProductId: process.env.STRIPE_PRODUCT_ID || "prod_V9ak0eT9rNimJa",
+            cloudflareApiToken: process.env.CLOUDFLARE_API_TOKEN,
+            cloudflareZoneId: process.env.CLOUDFLARE_ZONE_ID,
+            public: {
+                stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || "",
+            },
         },
 
         // Route-specific security rules and rendering modes
@@ -70,6 +89,8 @@ export default defineNuxtConfig(
 
             ["/viewer"]: { ssr: false },
 
+            ["/homepage-success"]: { ssr: false },
+
             ["/company/**"]: { prerender: false },
             ["/legal/**"]: { prerender: false },
             ["/images/badges/**"]: {
@@ -80,6 +101,13 @@ export default defineNuxtConfig(
             },
             ["/api/_auth/**"]: { csurf: false },
             ["/api/feedback"]: { csurf: false },
+            ["/api/homepage/webhook"]: { csurf: false },
+            ["/api/homepage/visit"]: { csurf: false },
+            ["/api/homepage/checkout"]: {
+                security: {
+                    xssValidator: false, // body contains SVG markup which trips the XSS validator
+                },
+            },
             ["/api/badges"]: {
                 security: {
                     xssValidator: false,

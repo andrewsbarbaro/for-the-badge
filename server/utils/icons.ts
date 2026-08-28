@@ -131,6 +131,11 @@ export function getPopularIcons(count : number = 20) : IconData[]
  * @param color - Icon fill color (default white)
  * @returns SVG group element as string
  */
+export function isImageUrl(s: string): boolean
+{
+    return s.startsWith("http://") || s.startsWith("https://") || s.startsWith("data:");
+}
+
 export function generateIconSVG(
     iconPath : string,
     x : number,
@@ -139,10 +144,16 @@ export function generateIconSVG(
     color : string = "#FFFFFF"
 ) : string
 {
-    // Simple Icons use a 24x24 viewBox, we scale to desired size
+    // Custom image URL (png, jpg, gif, svg, data URI)
+    if (isImageUrl(iconPath))
+    {
+        const top = y - size / 2;
+        return `<image href="${iconPath}" x="${x}" y="${top}" width="${size}" height="${size}" preserveAspectRatio="xMidYMid meet"/>`;
+    }
+
+    // Simple Icons SVG path — 24×24 viewBox scaled to desired size
     const scale = size / 24;
-    const translateY = y - (size / 2); // Center vertically in the 35px height badge
-    
+    const translateY = y - (size / 2);
     return `<g transform="translate(${x}, ${translateY}) scale(${scale})">
         <path d="${iconPath}" fill="${color}" />
     </g>`;

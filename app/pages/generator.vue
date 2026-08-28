@@ -7,24 +7,8 @@
         <!-- Mobile Navigation -->
         <MobileNavBar v-if="isMobile" />
 
-        <section class="page-header">
-            <!-- Animated dot matrix background -->
-            <div ref="dotMatrix" class="dot-matrix">
-                <div
-                    v-for="(dot, index) in dots"
-                    :key="index"
-                    :class="['dot', dot.type]"
-                    :style="{ left: dot.x + '%', top: dot.y + '%', animationDelay: dot.delay + 'ms', background: dot.color }"
-                />
-            </div>
-            
-            <div class="header-container">
-                <div class="header-content">
-                    <h1>Badge Generator</h1>
-                    <p class="subtitle">Create custom badges for your projects</p>
-                </div>
-            </div>
-        </section>
+
+
 
         <div class="generator-wrapper">
             <div class="generator-layout">
@@ -95,6 +79,17 @@
                                     </button>
                                 </div>
                                 <IconPicker v-if="showPrimaryIconPicker" v-model="primaryIcon" />
+                                <!-- Custom image URL override -->
+                                <div v-if="showPrimaryIconPicker" class="custom-image-row">
+                                    <span class="custom-image-label">Or paste an image URL</span>
+                                    <input
+                                        v-model="primaryCustomImageUrl"
+                                        type="url"
+                                        class="custom-image-input"
+                                        placeholder="https://example.com/icon.png"
+                                        @input="primaryCustomImageUrl ? (primaryIcon = primaryCustomImageUrl) : null"
+                                    >
+                                </div>
                                 <div v-if="primaryIcon" class="icon-options">
                                     <div class="color-group">
                                         <label>Icon Color</label>
@@ -168,6 +163,16 @@
                                     </button>
                                 </div>
                                 <IconPicker v-if="showSecondaryIconPicker" v-model="secondaryIcon" />
+                                <div v-if="showSecondaryIconPicker" class="custom-image-row">
+                                    <span class="custom-image-label">Or paste an image URL</span>
+                                    <input
+                                        v-model="secondaryCustomImageUrl"
+                                        type="url"
+                                        class="custom-image-input"
+                                        placeholder="https://example.com/icon.png"
+                                        @input="secondaryCustomImageUrl ? (secondaryIcon = secondaryCustomImageUrl) : null"
+                                    >
+                                </div>
                                 <div v-if="secondaryIcon" class="icon-options">
                                     <div class="color-group">
                                         <label>Icon Color</label>
@@ -241,6 +246,16 @@
                                     </button>
                                 </div>
                                 <IconPicker v-if="showTertiaryIconPicker" v-model="tertiaryIcon" />
+                                <div v-if="showTertiaryIconPicker" class="custom-image-row">
+                                    <span class="custom-image-label">Or paste an image URL</span>
+                                    <input
+                                        v-model="tertiaryCustomImageUrl"
+                                        type="url"
+                                        class="custom-image-input"
+                                        placeholder="https://example.com/icon.png"
+                                        @input="tertiaryCustomImageUrl ? (tertiaryIcon = tertiaryCustomImageUrl) : null"
+                                    >
+                                </div>
                                 <div v-if="tertiaryIcon" class="icon-options">
                                     <div class="color-group">
                                         <label>Icon Color</label>
@@ -408,7 +423,16 @@
                                 
                                 <!-- Primary Icon and Text -->
                                 <template v-if="primaryIconData">
-                                    <g :transform="`translate(${primaryIconPosition === 'left' ? Math.max(10, (primaryWidth / 2) - (primaryTextRef?.getBBox().width || 50) / 2 - primaryIconSize - 4) : Math.min(primaryWidth - primaryIconSize - 10, (primaryWidth / 2) + (primaryTextRef?.getBBox().width || 50) / 2 + 4)}, ${17.5 - primaryIconSize / 2}) scale(${primaryIconSize / 24})`">
+                                    <image
+                                        v-if="isIconUrl(primaryIconData.path)"
+                                        :href="primaryIconData.path"
+                                        :x="primaryIconPosition === 'left' ? Math.max(10, (primaryWidth / 2) - (primaryTextRef?.getBBox().width || 50) / 2 - primaryIconSize - 4) : Math.min(primaryWidth - primaryIconSize - 10, (primaryWidth / 2) + (primaryTextRef?.getBBox().width || 50) / 2 + 4)"
+                                        :y="17.5 - primaryIconSize / 2"
+                                        :width="primaryIconSize"
+                                        :height="primaryIconSize"
+                                        preserveAspectRatio="xMidYMid meet"
+                                    />
+                                    <g v-else :transform="`translate(${primaryIconPosition === 'left' ? Math.max(10, (primaryWidth / 2) - (primaryTextRef?.getBBox().width || 50) / 2 - primaryIconSize - 4) : Math.min(primaryWidth - primaryIconSize - 10, (primaryWidth / 2) + (primaryTextRef?.getBBox().width || 50) / 2 + 4)}, ${17.5 - primaryIconSize / 2}) scale(${primaryIconSize / 24})`">
                                         <path :d="primaryIconData.path" :fill="primaryIconColor" />
                                     </g>
                                 </template>
@@ -436,7 +460,16 @@
                                 
                                 <!-- Secondary Icon and Text -->
                                 <template v-if="secondaryIconData">
-                                    <g :transform="`translate(${primaryWidth + (secondaryIconPosition === 'left' ? Math.max(10, (secondaryWidth / 2) - (secondaryTextRef?.getBBox().width || 50) / 2 - secondaryIconSize - 4) : Math.min(secondaryWidth - secondaryIconSize - 10, (secondaryWidth / 2) + (secondaryTextRef?.getBBox().width || 50) / 2 + 4))}, ${17.5 - secondaryIconSize / 2}) scale(${secondaryIconSize / 24})`">
+                                    <image
+                                        v-if="isIconUrl(secondaryIconData.path)"
+                                        :href="secondaryIconData.path"
+                                        :x="primaryWidth + (secondaryIconPosition === 'left' ? Math.max(10, (secondaryWidth / 2) - (secondaryTextRef?.getBBox().width || 50) / 2 - secondaryIconSize - 4) : Math.min(secondaryWidth - secondaryIconSize - 10, (secondaryWidth / 2) + (secondaryTextRef?.getBBox().width || 50) / 2 + 4))"
+                                        :y="17.5 - secondaryIconSize / 2"
+                                        :width="secondaryIconSize"
+                                        :height="secondaryIconSize"
+                                        preserveAspectRatio="xMidYMid meet"
+                                    />
+                                    <g v-else :transform="`translate(${primaryWidth + (secondaryIconPosition === 'left' ? Math.max(10, (secondaryWidth / 2) - (secondaryTextRef?.getBBox().width || 50) / 2 - secondaryIconSize - 4) : Math.min(secondaryWidth - secondaryIconSize - 10, (secondaryWidth / 2) + (secondaryTextRef?.getBBox().width || 50) / 2 + 4))}, ${17.5 - secondaryIconSize / 2}) scale(${secondaryIconSize / 24})`">
                                         <path :d="secondaryIconData.path" :fill="secondaryIconColor" />
                                     </g>
                                 </template>
@@ -479,7 +512,16 @@
                                     
                                     <!-- Tertiary Icon and Text -->
                                     <template v-if="tertiaryIconData">
-                                        <g :transform="`translate(${primaryWidth + secondaryWidth + (tertiaryIconPosition === 'left' ? Math.max(10, (tertiaryWidth / 2) - (tertiaryTextRef?.getBBox().width || 50) / 2 - tertiaryIconSize - 4) : Math.min(tertiaryWidth - tertiaryIconSize - 10, (tertiaryWidth / 2) + (tertiaryTextRef?.getBBox().width || 50) / 2 + 4))}, ${17.5 - tertiaryIconSize / 2}) scale(${tertiaryIconSize / 24})`">
+                                        <image
+                                            v-if="isIconUrl(tertiaryIconData.path)"
+                                            :href="tertiaryIconData.path"
+                                            :x="primaryWidth + secondaryWidth + (tertiaryIconPosition === 'left' ? Math.max(10, (tertiaryWidth / 2) - (tertiaryTextRef?.getBBox().width || 50) / 2 - tertiaryIconSize - 4) : Math.min(tertiaryWidth - tertiaryIconSize - 10, (tertiaryWidth / 2) + (tertiaryTextRef?.getBBox().width || 50) / 2 + 4))"
+                                            :y="17.5 - tertiaryIconSize / 2"
+                                            :width="tertiaryIconSize"
+                                            :height="tertiaryIconSize"
+                                            preserveAspectRatio="xMidYMid meet"
+                                        />
+                                        <g v-else :transform="`translate(${primaryWidth + secondaryWidth + (tertiaryIconPosition === 'left' ? Math.max(10, (tertiaryWidth / 2) - (tertiaryTextRef?.getBBox().width || 50) / 2 - tertiaryIconSize - 4) : Math.min(tertiaryWidth - tertiaryIconSize - 10, (tertiaryWidth / 2) + (tertiaryTextRef?.getBBox().width || 50) / 2 + 4))}, ${17.5 - tertiaryIconSize / 2}) scale(${tertiaryIconSize / 24})`">
                                             <path :d="tertiaryIconData.path" :fill="tertiaryIconColor" />
                                         </g>
                                     </template>
@@ -555,6 +597,13 @@
                                     <path d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z" />
                                 </svg>
                                 Share
+                            </button>
+
+                            <button class="btn btn-place-on-homepage" @click="placeOnHomepage">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
+                                </svg>
+                                Place on Homepage
                             </button>
 
                             <div class="api-cta">
@@ -703,18 +752,21 @@ const primaryIconColor = ref('#FFFFFF');
 const primaryIconSize = ref(16);
 const primaryIconPosition = ref<'left' | 'right'>('left');
 const showPrimaryIconPicker = ref(true);
+const primaryCustomImageUrl = ref('');
 
 const secondaryIcon = ref<string>();
 const secondaryIconColor = ref('#FFFFFF');
 const secondaryIconSize = ref(16);
 const secondaryIconPosition = ref<'left' | 'right'>('left');
 const showSecondaryIconPicker = ref(false);
+const secondaryCustomImageUrl = ref('');
 
 const tertiaryIcon = ref<string>();
 const tertiaryIconColor = ref('#FFFFFF');
 const tertiaryIconSize = ref(16);
 const tertiaryIconPosition = ref<'left' | 'right'>('left');
 const showTertiaryIconPicker = ref(false);
+const tertiaryCustomImageUrl = ref('');
 
 // Badge global styling
 const badgeScale = ref(1);
@@ -764,64 +816,56 @@ const activeIconPanel = ref('primary');
 
 
 
-// Fetch icon data when icons change
+function isIconUrl(s?: string) {
+    return !!s && (s.startsWith('http://') || s.startsWith('https://') || s.startsWith('data:'));
+}
+
+// Fetch icon data when icons change; treat URLs as inline image icons
 watch(primaryIcon, async (newIcon) => {
-    if (newIcon) {
-        try {
-            const response = await $fetch<{ success: boolean; icons: any[] }>('/api/icons/search', {
-                params: { q: newIcon, limit: 1 },
-            });
-            if (response.success && response.icons.length > 0) {
-                const icon = response.icons.find(i => i.slug === newIcon);
-                if (icon) {
-                    primaryIconData.value = { path: icon.path, hex: icon.hex };
-                }
-            }
-        } catch (err) {
-            console.error('Error fetching primary icon:', err);
+    if (!newIcon) { primaryIconData.value = null; return; }
+    if (isIconUrl(newIcon)) { primaryIconData.value = { path: newIcon, hex: 'ffffff' }; return; }
+    try {
+        const response = await $fetch<{ success: boolean; icons: any[] }>('/api/icons/search', {
+            params: { q: newIcon, limit: 1 },
+        });
+        if (response.success && response.icons.length > 0) {
+            const icon = response.icons.find(i => i.slug === newIcon);
+            if (icon) primaryIconData.value = { path: icon.path, hex: icon.hex };
         }
-    } else {
-        primaryIconData.value = null;
+    } catch (err) {
+        console.error('Error fetching primary icon:', err);
     }
 });
 
 watch(secondaryIcon, async (newIcon) => {
-    if (newIcon) {
-        try {
-            const response = await $fetch<{ success: boolean; icons: any[] }>('/api/icons/search', {
-                params: { q: newIcon, limit: 1 },
-            });
-            if (response.success && response.icons.length > 0) {
-                const icon = response.icons.find(i => i.slug === newIcon);
-                if (icon) {
-                    secondaryIconData.value = { path: icon.path, hex: icon.hex };
-                }
-            }
-        } catch (err) {
-            console.error('Error fetching secondary icon:', err);
+    if (!newIcon) { secondaryIconData.value = null; return; }
+    if (isIconUrl(newIcon)) { secondaryIconData.value = { path: newIcon, hex: 'ffffff' }; return; }
+    try {
+        const response = await $fetch<{ success: boolean; icons: any[] }>('/api/icons/search', {
+            params: { q: newIcon, limit: 1 },
+        });
+        if (response.success && response.icons.length > 0) {
+            const icon = response.icons.find(i => i.slug === newIcon);
+            if (icon) secondaryIconData.value = { path: icon.path, hex: icon.hex };
         }
-    } else {
-        secondaryIconData.value = null;
+    } catch (err) {
+        console.error('Error fetching secondary icon:', err);
     }
 });
 
 watch(tertiaryIcon, async (newIcon) => {
-    if (newIcon) {
-        try {
-            const response = await $fetch<{ success: boolean; icons: any[] }>('/api/icons/search', {
-                params: { q: newIcon, limit: 1 },
-            });
-            if (response.success && response.icons.length > 0) {
-                const icon = response.icons.find(i => i.slug === newIcon);
-                if (icon) {
-                    tertiaryIconData.value = { path: icon.path, hex: icon.hex };
-                }
-            }
-        } catch (err) {
-            console.error('Error fetching tertiary icon:', err);
+    if (!newIcon) { tertiaryIconData.value = null; return; }
+    if (isIconUrl(newIcon)) { tertiaryIconData.value = { path: newIcon, hex: 'ffffff' }; return; }
+    try {
+        const response = await $fetch<{ success: boolean; icons: any[] }>('/api/icons/search', {
+            params: { q: newIcon, limit: 1 },
+        });
+        if (response.success && response.icons.length > 0) {
+            const icon = response.icons.find(i => i.slug === newIcon);
+            if (icon) tertiaryIconData.value = { path: icon.path, hex: icon.hex };
         }
-    } else {
-        tertiaryIconData.value = null;
+    } catch (err) {
+        console.error('Error fetching tertiary icon:', err);
     }
 });
 
@@ -1234,6 +1278,12 @@ function copyShareLink() {
     });
 }
 
+function placeOnHomepage() {
+    // Pass the full badge API URL as a query param — no hash anchor to avoid parsing issues
+    const badgeUrl = encodeURIComponent(apiUrl.value);
+    navigateTo(`/?place=1&badgeUrl=${badgeUrl}`);
+}
+
 function copyApiUrl() {
     navigator.clipboard.writeText(apiUrl.value).then(() => {
         apiUrlCopied.value = true;
@@ -1579,6 +1629,8 @@ definePageMeta({
     background: #ffffff;
 }
 
+
+
 .generator-wrapper {
     max-width: 1600px;
     margin: 0 auto;
@@ -1631,36 +1683,6 @@ definePageMeta({
     color: white;
 }
 
-.page-header {
-    min-height: 40vh;
-    background: #f8fafb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 0;
-    padding-top: 8rem;
-    padding-bottom: 4rem;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Animated dot matrix background */
-.dot-matrix {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.dot {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0;
-    animation: dotFade 4s infinite;
-}
 
 .dot.small {
     width: 3px;
@@ -1944,6 +1966,13 @@ definePageMeta({
     min-height: 120px;
 }
 
+.preview-container svg {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .badge-svg {
     max-width: 100%;
     height: auto;
@@ -2044,6 +2073,12 @@ definePageMeta({
     gap: 0.5rem;
 }
 
+.actions .btn {
+    height: 40px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .api-cta {
     margin-top: 1.25rem;
     padding-top: 1rem;
@@ -2085,6 +2120,8 @@ definePageMeta({
 
 .code-inline-wrapper {
     position: relative;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .api-cta .code-inline {
@@ -2186,6 +2223,20 @@ definePageMeta({
     opacity: 0.6;
     cursor: not-allowed;
     position: relative;
+}
+
+.btn-place-on-homepage {
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-place-on-homepage:hover {
+    background: #222;
+    border-color: #222;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
 }
 
 .coming-soon-badge {
@@ -2437,6 +2488,39 @@ definePageMeta({
     background: #31C4F3;
     color: white;
     border-color: #31C4F3;
+}
+
+.custom-image-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.625rem;
+    padding-top: 0.625rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+.custom-image-label {
+    font-size: 0.75rem;
+    color: #999;
+    font-weight: 500;
+}
+
+.custom-image-input {
+    width: 100%;
+    padding: 0.375rem 0.625rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 0.8125rem;
+    color: #000;
+    background: #fff;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.15s;
+}
+
+.custom-image-input:focus {
+    outline: none;
+    border-color: #000;
 }
 
 .icon-options {

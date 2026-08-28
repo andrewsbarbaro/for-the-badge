@@ -6,32 +6,6 @@
         <!-- Mobile Navigation -->
         <MobileNavBar v-if="isMobile" />
 
-        <SubPageHeader
-            title="Everything Everywhere All at Once"
-            :subtitle="`${allBadges.length} badges across the multiverse`"
-        >
-            <div class="search-wrapper">
-                <svg
-                    class="search-icon"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                >
-                    <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-                </svg>
-                <input
-                    v-model="searchQuery"
-                    type="text"
-                    placeholder="Search badges..."
-                    class="search-input"
-                >
-            </div>
-
-            <p v-if="searchQuery.trim()" class="results-count">
-                {{ totalResults }} result{{ totalResults !== 1 ? 's' : '' }}
-            </p>
-        </SubPageHeader>
 
         <div class="badges-container">
             <!-- Filter Buttons -->
@@ -96,18 +70,7 @@
                 <p>{{ badgesError }}</p>
             </div>
 
-            <div v-else-if="totalResults === 0 && searchQuery.trim()" class="no-results">
-                <svg
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                >
-                    <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-                </svg>
-                <h2>No badges found</h2>
-                <p>Try a different search term</p>
-            </div>
+
 
             <div v-else>
                 <!-- Community Loading State -->
@@ -860,14 +823,32 @@ definePageMeta({ layout: false });
 <style scoped>
 .badges-page {
     min-height: 100vh;
-    background: #fafafa;
+    background: #fff;
+}
+
+/* Minimal search bar — full width, no hero text */
+.badges-search-bar {
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid #e8e8e8;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
 }
 
 /* Search Wrapper Styling */
 .search-wrapper {
     position: relative;
+    width: 100%;
     max-width: 600px;
-    margin: 2rem auto 0;
+    margin: 0;
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    transition: border-color 0.2s;
+}
+
+.search-wrapper:focus-within {
+    border-color: #000;
 }
 
 .search-icon {
@@ -881,19 +862,20 @@ definePageMeta({ layout: false });
 
 .search-input {
     width: 100%;
-    padding: 1.25rem 1.5rem 1.25rem 4rem;
-    border: 2px solid #e5e5e5;
+    padding: 0 1.5rem 0 4rem;
+    height: 44px;
+    border: none;
     border-radius: 12px;
-    font-size: 1.125rem;
+    font-size: 1rem;
     outline: none;
-    transition: all 0.3s;
     background: #ffffff;
     color: #000000;
+    box-sizing: border-box;
 }
 
 .search-input:focus {
-    border-color: #000000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #000;
+    outline: none;
 }
 
 .search-input::placeholder {
@@ -936,6 +918,7 @@ definePageMeta({ layout: false });
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .filter-icon {
@@ -1136,10 +1119,10 @@ definePageMeta({ layout: false });
 
 .badge-card {
     background: #ffffff;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 2rem;
     border: 1px solid #e5e5e5;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s;
     position: relative;
 }
 

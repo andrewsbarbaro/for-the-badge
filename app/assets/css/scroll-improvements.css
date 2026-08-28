@@ -4,6 +4,16 @@ html {
   scroll-padding-top: 100px; /* Account for fixed headers/navbars */
 }
 
+/* Mobile: offset fixed top bar (52px) and bottom nav (64px) on all non-homepage pages.
+   The homepage handles its own offsets via index.vue. */
+@media (max-width: 768px) {
+  .page, .badges-page, .account-detail-background, .generator-page, .success-page, .privacy-page {
+    padding-top: 52px;
+    padding-bottom: 64px;
+    box-sizing: border-box;
+  }
+}
+
 /* Smooth focus transitions */
 *:focus {
   transition: box-shadow 0.2s ease, border-color 0.2s ease;

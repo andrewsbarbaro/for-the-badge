@@ -39,7 +39,9 @@ function decodePepperKey(pepperKey: string): Buffer
 function getPasswordPepperInfo(): PepperInfo
 {
     const config = useRuntimeConfig();
-    const pepperKeyRaw = config.passwordPepper;
+    // Fallback to process.env for Cloudflare Workers where runtimeConfig
+    // may be undefined if the secret wasn't in .env at build time.
+    const pepperKeyRaw = config.passwordPepper || process.env.PASSWORD_PEPPER;
     const pepperKey = typeof pepperKeyRaw === "string" ? pepperKeyRaw : "";
 
     // If unset, Nuxt often materializes runtimeConfig keys as empty strings.
@@ -67,7 +69,7 @@ function getPepper(): Buffer
 function getAccountHmacSecret(version : number = 1) : Buffer
 {
     const config = useRuntimeConfig();
-    const baseSecret = config.accountHmacSecret;
+    const baseSecret = config.accountHmacSecret || process.env.ACCOUNT_HMAC_SECRET;
     if (!baseSecret)
     {
         throw new Error("ACCOUNT_HMAC_SECRET not configured");

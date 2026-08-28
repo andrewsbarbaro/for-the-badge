@@ -1,4 +1,5 @@
 import { defineEventHandler, createError, getQuery, setHeader } from "h3";
+import { isImageUrl } from "../../utils/icons";
 
 interface BadgeConfig {
     panels: number;
@@ -469,8 +470,9 @@ function generateSVG(config : BadgeConfig) : string
     // Primary icon and text
     if (config.primaryIcon)
     {
-        const iconData = getIcon(config.primaryIcon);
-        if (iconData)
+        const iconData = isImageUrl(config.primaryIcon) ? null : getIcon(config.primaryIcon);
+        const primaryIconSrc = iconData ? iconData.path : (isImageUrl(config.primaryIcon) ? config.primaryIcon : null);
+        if (primaryIconSrc)
         {
             const iconColor = config.primaryIconColor || config.primaryTextColor;
             const textOffset = primaryIconPosition === "left" ? (primaryIconSize + 4) / 2 : -(primaryIconSize + 4) / 2;
@@ -482,8 +484,8 @@ function generateSVG(config : BadgeConfig) : string
             const iconX = primaryIconPosition === "left"
                 ? Math.max(10, baseIconX)
                 : Math.min(primaryWidth - primaryIconSize - 10, baseIconX);
-            
-            svg += generateIconSVG(iconData.path, iconX, 17.5, primaryIconSize, iconColor);
+
+            svg += generateIconSVG(primaryIconSrc, iconX, 17.5, primaryIconSize, iconColor);
             const primaryShadowFilterId = primaryShadowFilter ? "primaryShadow" : "";
             const primaryAttrs = buildTextAttributes(
                 (primaryWidth / 2) + textOffset, 17.5, primaryFontSize, primaryFontFamily,
@@ -523,8 +525,9 @@ function generateSVG(config : BadgeConfig) : string
     // Secondary icon and text
     if (config.secondaryIcon)
     {
-        const iconData = getIcon(config.secondaryIcon);
-        if (iconData)
+        const secondaryIconDataRaw = isImageUrl(config.secondaryIcon) ? null : getIcon(config.secondaryIcon);
+        const secondaryIconSrc = secondaryIconDataRaw ? secondaryIconDataRaw.path : (isImageUrl(config.secondaryIcon) ? config.secondaryIcon : null);
+        if (secondaryIconSrc)
         {
             const iconColor = config.secondaryIconColor || config.secondaryTextColor;
             const textOffset = secondaryIconPosition === "left" ? (secondaryIconSize + 4) / 2 : -(secondaryIconSize + 4) / 2;
@@ -536,8 +539,8 @@ function generateSVG(config : BadgeConfig) : string
             const iconX = primaryWidth + (secondaryIconPosition === "left"
                 ? Math.max(10, baseIconX)
                 : Math.min(secondaryWidth - secondaryIconSize - 10, baseIconX));
-            
-            svg += generateIconSVG(iconData.path, iconX, 17.5, secondaryIconSize, iconColor);
+
+            svg += generateIconSVG(secondaryIconSrc, iconX, 17.5, secondaryIconSize, iconColor);
             const secondaryShadowFilterId = secondaryShadowFilter ? "secondaryShadow" : "";
             const secondaryAttrs = buildTextAttributes(
                 primaryWidth + (secondaryWidth / 2) + textOffset, 17.5, secondaryFontSize, secondaryFontFamily,
@@ -579,8 +582,9 @@ function generateSVG(config : BadgeConfig) : string
     {
         if (config.tertiaryIcon)
         {
-            const iconData = getIcon(config.tertiaryIcon);
-            if (iconData)
+            const tertiaryIconDataRaw = isImageUrl(config.tertiaryIcon) ? null : getIcon(config.tertiaryIcon);
+            const tertiaryIconSrc = tertiaryIconDataRaw ? tertiaryIconDataRaw.path : (isImageUrl(config.tertiaryIcon) ? config.tertiaryIcon : null);
+            if (tertiaryIconSrc)
             {
                 const iconColor = config.tertiaryIconColor || config.tertiaryTextColor;
                 const textOffset = tertiaryIconPosition === "left" ? (tertiaryIconSize + 4) / 2 : -(tertiaryIconSize + 4) / 2;
@@ -592,8 +596,8 @@ function generateSVG(config : BadgeConfig) : string
                 const iconX = primaryWidth + secondaryWidth + (tertiaryIconPosition === "left"
                     ? Math.max(10, baseIconX)
                     : Math.min(tertiaryWidth - tertiaryIconSize - 10, baseIconX));
-                
-                svg += generateIconSVG(iconData.path, iconX, 17.5, tertiaryIconSize, iconColor);
+
+                svg += generateIconSVG(tertiaryIconSrc, iconX, 17.5, tertiaryIconSize, iconColor);
                 const tertiaryShadowFilterId = tertiaryShadowFilter ? "tertiaryShadow" : "";
                 const tertiaryAttrs = buildTextAttributes(
                     primaryWidth + secondaryWidth + (tertiaryWidth / 2) + textOffset, 17.5, tertiaryFontSize, tertiaryFontFamily,

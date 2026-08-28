@@ -50,6 +50,20 @@
       "when": 1765670598838,
       "tag": "0006_cold_romulus",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1774224000000,
+      "tag": "0007_homepage_placements",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1787929600000,
+      "tag": "0008_add_owner_query_id",
+      "breakpoints": true
     }
   ]
 }

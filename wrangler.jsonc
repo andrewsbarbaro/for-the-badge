@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "forthebadge-v4",
+	"name": "forthebadge",
 	"main": "./dist/server/index.mjs",
 	"compatibility_date": "2025-07-15",
 	"compatibility_flags": [

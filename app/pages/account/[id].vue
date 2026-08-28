@@ -103,11 +103,6 @@
 
                         <div class="account-actions">
 
-                            <ReferralLink
-                                :accountId="account.id"
-                                :isMobile="isMobile"
-                            />
-
                             <PinManagement
                                 :account="account"
                                 @setup-pin="showPinSetupModal = true"
@@ -115,7 +110,20 @@
                                 @disable-pin="showPinDisableModal = true"
                             />
 
-                            <AppDownload />
+                            <!-- Badge Board Placements -->
+                            <div v-if="myPlacements.length > 0" class="placements-section">
+                                <h3 class="placements-title">Badge Board Spaces</h3>
+                                <div v-for="p in myPlacements" :key="p.id" class="placement-item">
+                                    <div class="placement-badge-thumb" v-html="p.badgeSvg" />
+                                    <div class="placement-info">
+                                        <span class="placement-size">{{ p.gridWidth }}×{{ p.gridHeight }} cells · ${{ (p.amountPaidCents / 100).toFixed(0) }}</span>
+                                        <span :class="['placement-status', `status-${p.status}`]">{{ p.status === 'pending_approval' ? 'under review' : p.status }}</span>
+                                        <a v-if="p.linkUrl" :href="p.linkUrl" target="_blank" rel="noopener noreferrer" class="placement-link">{{ p.linkUrl }}</a>
+                                    </div>
+                                    <NuxtLink to="/" class="placement-view-btn">View on board →</NuxtLink>
+                                </div>
+                            </div>
+
                             <div class="danger-zone">
                                 <button
                                     class="delete-account-btn"
@@ -196,7 +204,6 @@
 import { ref, computed, onMounted, nextTick } from "vue";
 
 import AccountSkeleton from "~/components/AccountSkeleton.vue";
-import AppDownload from "~/components/AppDownload.vue";
 import DeleteAccountModal from "~/components/DeleteAccountModal.vue";
 import NavBar from "~/components/NavBar.vue";
 import MobileNavBar from "~/components/MobileNavBar.vue";
@@ -205,7 +212,6 @@ import PinDisableModal from "~/components/PinDisableModal.vue";
 import PinManagement from "~/components/PinManagement.vue";
 import PinPrompt from "~/components/PinPrompt.vue";
 import PinSetupModal from "~/components/PinSetupModal.vue";
-import ReferralLink from "~/components/ReferralLink.vue";
 import { isMobileDevice } from '~/utils/deviceDetection';
 
 const route = useRoute();
@@ -228,6 +234,7 @@ const isMobile = computed(() => {
 // Membership card functionality
 const showNumber = ref(false);
 const copied = ref(false);
+const myPlacements = ref([]);
 
 // Use auth composable
 const {
@@ -327,6 +334,12 @@ onMounted(async () =>
         // Set initial state
         pinVerified.value = true;
         pending.value = false;
+
+        // Load any badge board placements linked to this account
+        try {
+            const data = await $fetch('/api/homepage/my-placements');
+            myPlacements.value = data.placements;
+        } catch { /* none */ }
     }
 });
 
@@ -565,6 +578,7 @@ const formatDate = (dateString) =>
   max-width: 600px;
   margin: 0 auto;
   padding: 8rem 2rem 4rem;
+  padding-bottom: 2rem;
   position: relative;
   z-index: 3;
 }
@@ -699,6 +713,7 @@ const formatDate = (dateString) =>
   overflow: hidden;
   outline: none;
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .mobile-view .membership-card {
@@ -1005,6 +1020,87 @@ const formatDate = (dateString) =>
   margin-bottom: 1.25rem;
 }
 
+/* Badge Board placements */
+.placements-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e8e8e8;
+}
+
+.placements-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0 0 1rem;
+}
+
+.placement-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  margin-bottom: 0.625rem;
+  transition: border-color 0.15s;
+}
+
+.placement-item:hover { border-color: #000; }
+
+.placement-badge-thumb {
+  width: 80px;
+  height: 28px;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.placement-badge-thumb :deep(svg) { width: 100%; height: 100%; display: block; }
+
+.placement-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.placement-size { font-size: 0.8125rem; color: #555; font-weight: 600; }
+
+.placement-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.status-active { color: #15803d; }
+.status-pending_approval, .status-pending { color: #b45309; }
+.status-denied { color: #dc2626; }
+
+.placement-link {
+  font-size: 0.75rem;
+  color: #888;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placement-view-btn {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #000;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.placement-view-btn:hover { text-decoration: underline; text-underline-offset: 2px; }
+
 .danger-zone {
   margin-top: 2rem;
   padding-top: 2rem;
@@ -1017,9 +1113,9 @@ const formatDate = (dateString) =>
 }
 
 .delete-account-btn {
-  background: #e53e3e;
-  color: white;
-  border: none;
+  background: transparent;
+  color: #ef4444;
+  border: 1.5px solid #fca5a5;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   font-weight: 600;
@@ -1036,7 +1132,8 @@ const formatDate = (dateString) =>
 }
 
 .delete-account-btn:hover {
-  background: #c53030;
+  background: #fef2f2;
+  border-color: #ef4444;
   transform: translateY(-1px);
 }
 

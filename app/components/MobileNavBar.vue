@@ -5,10 +5,10 @@
             <NuxtLink to="/" class="top-bar-logo">
                 <img src="/logo_black.svg" alt="For the Badge" class="logo-img">
             </NuxtLink>
-            
-            <button class="top-bar-menu" @click="showMenu = true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+
+            <button class="top-bar-menu" @click="showMenu = true" aria-label="Open menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
                 </svg>
             </button>
         </header>
@@ -172,16 +172,6 @@
                             <span>Send Feedback</span>
                         </button>
 
-                        <NuxtLink to="/donors" class="menu-item" @click="showMenu = false">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
-                            </svg>
-                            <span>Support Us</span>
-                            <svg class="menu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                            </svg>
-                        </NuxtLink>
-
                         <div class="menu-divider"></div>
 
                         <button class="menu-item logout" @click="handleSignOut">
@@ -273,16 +263,6 @@
                             </svg>
                             <span>Send Feedback</span>
                         </button>
-
-                        <NuxtLink to="/donors" class="menu-item" @click="showMenu = false">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
-                            </svg>
-                            <span>Support Us</span>
-                            <svg class="menu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                            </svg>
-                        </NuxtLink>
 
                         <NuxtLink to="/account" class="menu-item" @click="showMenu = false">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -381,10 +361,9 @@ const handleFeedbackSubmit = async (feedbackData) => {
     top: 0;
     left: 0;
     right: 0;
-    height: 56px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    height: 52px;
+    background: #000;
+    border-bottom: 1px solid #222;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -398,17 +377,21 @@ const handleFeedbackSubmit = async (feedbackData) => {
 }
 
 .logo-img {
-    height: 28px;
+    height: 20px;
     width: auto;
+    filter: invert(1);
 }
 
 .top-bar-menu {
     background: none;
     border: none;
     padding: 0.5rem;
-    color: #000000;
+    color: rgba(255,255,255,0.7);
     cursor: pointer;
+    transition: color 0.12s;
 }
+
+.top-bar-menu:hover { color: #fff; }
 
 /* Bottom Navigation */
 .mobile-bottom-nav {
@@ -435,7 +418,7 @@ const handleFeedbackSubmit = async (feedbackData) => {
     padding: 0.5rem 1rem;
     color: #9ca3af;
     text-decoration: none;
-    transition: all 0.2s;
+    transition: color 0.12s, background 0.12s;
     flex: 1;
 }
 
@@ -585,6 +568,7 @@ const handleFeedbackSubmit = async (feedbackData) => {
     transition: all 0.2s;
     width: 100%;
     text-align: left;
+    letter-spacing: 0.01em;
 }
 
 .menu-item:active {
