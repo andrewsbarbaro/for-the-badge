@@ -46,6 +46,9 @@ cert.pem
 coverage
 
 # Editor
+# Self-hosted AI assets for /remove-background (fetched by scripts/fetch-bg-removal-assets.mjs)
+public/imgly/bg-removal/
+
 *.swp
 *.swo
 .vscode/*

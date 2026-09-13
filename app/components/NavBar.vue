@@ -37,6 +37,10 @@
                         class="nav-link"
                     >View All Badges</NuxtLink>
                     <NuxtLink
+                        to="/remove-background"
+                        class="nav-link removebg-link"
+                    >Remove BG<span class="nav-new-badge">New</span></NuxtLink>
+                    <NuxtLink
                         to="/api"
                         class="nav-link"
                     >API</NuxtLink>
@@ -84,6 +88,12 @@
                         class="nav-link"
                     >
                         View All Badges
+                    </NuxtLink>
+                    <NuxtLink
+                        to="/remove-background"
+                        class="nav-link removebg-link"
+                    >
+                        Remove BG<span class="nav-new-badge">New</span>
                     </NuxtLink>
                     <NuxtLink
                         to="/api"
@@ -302,6 +312,31 @@ if (import.meta.client)
 .nav-link:hover {
   color: #1f2937;
   background: rgba(31, 41, 55, 0.08);
+}
+
+.removebg-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.removebg-link:hover {
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.nav-new-badge {
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 0.1875rem 0.375rem;
+  border-radius: 9999px;
 }
 
 .awards-link {

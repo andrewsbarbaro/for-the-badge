@@ -12,16 +12,16 @@
 
         <div class="hero-container">
             <div class="hero-content">
-                <!-- Launch Announcement Card -->
-                <NuxtLink to="/awards" class="launch-card">
-                    <div class="launch-badge launch-badge-awards">
+                <!-- New Feature Spotlight: AI Background Remover -->
+                <NuxtLink to="/remove-background" class="launch-card launch-card-removebg">
+                    <div class="launch-badge launch-badge-removebg">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                                <path d="M9.64,7.64C10.45,6.84 11.6,6.5 12.66,6.73C14.5,7.13 15.7,8.88 15.41,10.74C15.24,11.8 14.68,12.71 13.87,13.32L21.41,20.86L20,22.27L12.45,14.73C11.65,15.07 10.76,15.16 9.88,14.96L7.5,17.36C6.9,17.96 5.96,17.96 5.36,17.36C4.76,16.76 4.76,15.82 5.36,15.22L7.73,12.85C7.08,11.35 7.32,9.63 8.5,8.5L10.5,10.5L12.5,8.5L11,7L9.64,7.64M12,8.5A1.5,1.5 0 0,0 10.5,10A1.5,1.5 0 0,0 12,11.5A1.5,1.5 0 0,0 13.5,10A1.5,1.5 0 0,0 12,8.5M19.5,2C20.05,2 20.5,2.45 20.5,3V5.5L18,8L16,6V4.5C16,3.12 17.12,2 18.5,2H19.5Z"/>
                     </svg>
-                        <span>Developer Awards</span>
+                        <span>New: BG Remover</span>
                     </div>
                     <div class="launch-content">
-                        <p>The first-ever Developer Awards are complete — meet the winners.</p>
+                        <p>remove.bg is shutting down — remove image backgrounds free, right here.</p>
                     </div>
                 </NuxtLink>
                 
@@ -251,6 +251,27 @@ onMounted(() =>
   background: linear-gradient(135deg, #FEF3C7 0%, rgba(255, 255, 255, 0.9) 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(251, 191, 36, 0.25);
+}
+
+/* New-feature (BG Remover) variant */
+.launch-card-removebg {
+  background: linear-gradient(135deg, #EFF6FF 0%, rgba(255, 255, 255, 0.8) 100%);
+  border-color: #60a5fa;
+}
+
+.launch-card-removebg:hover {
+  border-color: #2563eb;
+  background: linear-gradient(135deg, #DBEAFE 0%, rgba(255, 255, 255, 0.9) 100%);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.25);
+}
+
+.launch-badge-removebg {
+  background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+  color: #ffffff;
+}
+
+.launch-card-removebg .launch-content p {
+  color: #1e3a8a;
 }
 
 @keyframes slideInDown {

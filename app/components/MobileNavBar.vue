@@ -122,6 +122,19 @@
                             <span>Badges</span>
                         </NuxtLink>
 
+                        <NuxtLink to="/remove-background" class="menu-item removebg" @click="showMenu = false">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9.64,7.64C10.45,6.84 11.6,6.5 12.66,6.73C14.5,7.13 15.7,8.88 15.41,10.74C15.24,11.8 14.68,12.71 13.87,13.32L21.41,20.86L20,22.27L12.45,14.73C11.65,15.07 10.76,15.16 9.88,14.96L7.5,17.36C6.9,17.96 5.96,17.96 5.36,17.36C4.76,16.76 4.76,15.82 5.36,15.22L7.73,12.85C7.08,11.35 7.32,9.63 8.5,8.5L10.5,10.5L12.5,8.5L11,7L9.64,7.64M12,8.5A1.5,1.5 0 0,0 10.5,10A1.5,1.5 0 0,0 12,11.5A1.5,1.5 0 0,0 13.5,10A1.5,1.5 0 0,0 12,8.5M19.5,2C20.05,2 20.5,2.45 20.5,3V5.5L18,8L16,6V4.5C16,3.12 17.12,2 18.5,2H19.5Z" />
+                            </svg>
+                            <span class="removebg-menu-text">
+                                <span class="removebg-menu-title">Remove Background</span>
+                                <span class="removebg-menu-badge">New</span>
+                            </span>
+                            <svg class="menu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                            </svg>
+                        </NuxtLink>
+
                         <NuxtLink to="/api" class="menu-item" @click="showMenu = false">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M3,6H21V8H3V6M3,16H21V18H3V16M3,11H21V13H3V11Z" />
@@ -239,6 +252,19 @@
                                 <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z" />
                             </svg>
                             <span>Browse Badges</span>
+                            <svg class="menu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                            </svg>
+                        </NuxtLink>
+
+                        <NuxtLink to="/remove-background" class="menu-item removebg" @click="showMenu = false">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9.64,7.64C10.45,6.84 11.6,6.5 12.66,6.73C14.5,7.13 15.7,8.88 15.41,10.74C15.24,11.8 14.68,12.71 13.87,13.32L21.41,20.86L20,22.27L12.45,14.73C11.65,15.07 10.76,15.16 9.88,14.96L7.5,17.36C6.9,17.96 5.96,17.96 5.36,17.36C4.76,16.76 4.76,15.82 5.36,15.22L7.73,12.85C7.08,11.35 7.32,9.63 8.5,8.5L10.5,10.5L12.5,8.5L11,7L9.64,7.64M12,8.5A1.5,1.5 0 0,0 10.5,10A1.5,1.5 0 0,0 12,11.5A1.5,1.5 0 0,0 13.5,10A1.5,1.5 0 0,0 12,8.5M19.5,2C20.05,2 20.5,2.45 20.5,3V5.5L18,8L16,6V4.5C16,3.12 17.12,2 18.5,2H19.5Z" />
+                            </svg>
+                            <span class="removebg-menu-text">
+                                <span class="removebg-menu-title">Remove Background</span>
+                                <span class="removebg-menu-badge">New</span>
+                            </span>
                             <svg class="menu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                             </svg>
@@ -647,6 +673,35 @@ const handleFeedbackSubmit = async (feedbackData) => {
     background: rgba(251, 191, 36, 0.18);
     border: 1px solid rgba(245, 158, 11, 0.25);
     color: #b45309;
+}
+
+.menu-item.removebg svg:first-child {
+    color: #2563eb;
+}
+
+.removebg-menu-text {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.removebg-menu-title {
+    font-weight: 800;
+    color: #1d4ed8;
+}
+
+.removebg-menu-badge {
+    width: fit-content;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.4rem;
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(37, 99, 235, 0.25);
+    color: #1d4ed8;
 }
 
 .menu-item.logout {

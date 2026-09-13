@@ -58,6 +58,42 @@ export default defineNuxtConfig(
             // === RENDERING MODES ===
             ["/"]: { prerender: false },
 
+            ["/remove-background"]: {
+                prerender: false,
+                security: {
+                    headers: {
+                        contentSecurityPolicy: {
+                            // Same as the default script-src, plus:
+                            //  - 'wasm-unsafe-eval' so onnxruntime-web can compile its
+                            //    WebAssembly model
+                            //  - 'unsafe-eval' because the ndarray dependency builds tensor
+                            //    views via `new Function(...)` codegen
+                            // Scope: this page only — the rest of the site keeps strict CSP.
+                            "script-src": [
+                                "'self'",
+                                "https:",
+                                "'unsafe-inline'",
+                                "'strict-dynamic'",
+                                "'unsafe-eval'",
+                                "'wasm-unsafe-eval'",
+                                "'nonce-{{nonce}}'",
+                            ],
+                            // Default connect-src + blob:/data: — the background remover
+                            // loads its wasm/model through blob: object URLs.
+                            "connect-src": [
+                                "'self'",
+                                "https:",
+                                "wss:",
+                                "ws://localhost:*",
+                                "http://localhost:*",
+                                "blob:",
+                                "data:",
+                            ],
+                        },
+                    },
+                },
+            },
+
             ["/admin"]: { ssr: true },
 
             ["/app"]: { ssr: false },

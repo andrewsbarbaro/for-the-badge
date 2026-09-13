@@ -46,6 +46,7 @@
         "stripe": "stripe listen --forward-to localhost:3000/api/_webhooks/_stripe-b7e595af"
     },
     "dependencies": {
+        "@imgly/background-removal": "^1.7.0",
         "@libsql/client": "^0.15.10",
         "@noble/hashes": "^2.0.0",
         "@nutrient-sdk/dws-client-typescript": "^1.0.1",
