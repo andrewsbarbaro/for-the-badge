@@ -16,7 +16,7 @@ const KEY_LENGTH = 32;
 function getBadgeEncryptionKey() : Buffer
 {
     const config = useRuntimeConfig();
-    const key = config.badgeEncryptionKey;
+    const key = getRuntimeSecret(config.badgeEncryptionKey, "BADGE_ENCRYPTION_KEY");
     if (!key)
     {
         throw new Error("BADGE_ENCRYPTION_KEY environment variable is required");

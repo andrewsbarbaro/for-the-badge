@@ -18,7 +18,7 @@ const IV_LENGTH = 16;
 function getRefundEncryptionKey() : Buffer
 {
     const config = useRuntimeConfig();
-    const baseKey = typeof config.badgeEncryptionKey === "string" ? config.badgeEncryptionKey : "";
+    const baseKey = getRuntimeSecret(config.badgeEncryptionKey, "BADGE_ENCRYPTION_KEY");
     if (!baseKey)
     {
         throw new Error("BADGE_ENCRYPTION_KEY environment variable is required");

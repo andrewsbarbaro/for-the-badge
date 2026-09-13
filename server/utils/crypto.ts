@@ -39,8 +39,7 @@ function decodePepperKey(pepperKey: string): Buffer
 function getPasswordPepperInfo(): PepperInfo
 {
     const config = useRuntimeConfig();
-    const pepperKeyRaw = config.passwordPepper;
-    const pepperKey = typeof pepperKeyRaw === "string" ? pepperKeyRaw : "";
+    const pepperKey = getRuntimeSecret(config.passwordPepper, "PASSWORD_PEPPER");
 
     // If unset, Nuxt often materializes runtimeConfig keys as empty strings.
     if (!pepperKey)
@@ -67,7 +66,7 @@ function getPepper(): Buffer
 function getAccountHmacSecret(version : number = 1) : Buffer
 {
     const config = useRuntimeConfig();
-    const baseSecret = config.accountHmacSecret;
+    const baseSecret = getRuntimeSecret(config.accountHmacSecret, "ACCOUNT_HMAC_SECRET");
     if (!baseSecret)
     {
         throw new Error("ACCOUNT_HMAC_SECRET not configured");

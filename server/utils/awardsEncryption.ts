@@ -15,7 +15,7 @@ const KEY_LENGTH = 32;
  */
 function getAwardsEncryptionKey(): Buffer {
     const config = useRuntimeConfig();
-    const key = config.badgeEncryptionKey; // Reuse the same encryption key infrastructure
+    const key = getRuntimeSecret(config.badgeEncryptionKey, "BADGE_ENCRYPTION_KEY"); // Reuse the same encryption key infrastructure
     if (!key) {
         throw new Error("BADGE_ENCRYPTION_KEY environment variable is required");
     }
