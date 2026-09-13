@@ -2,58 +2,64 @@
     <div :class="['donation-cta', variant]">
         <div class="cta-content">
             <div class="cta-icon">
-                <svg v-if="variant === 'heart'" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                    v-if="variant === 'heart'"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
                     <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
                 </svg>
-                <svg v-else width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                    v-else
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
                     <path d="M12,2L15.09,8.26L22,9.27L17,14.14L18.18,21.02L12,17.77L5.82,21.02L7,14.14L2,9.27L8.91,8.26L12,2Z" />
                 </svg>
             </div>
             <div class="cta-text">
-                <h3 class="cta-title">{{ title }}</h3>
-                <p class="cta-description">{{ description }}</p>
+                <h3 class="cta-title">
+                    {{ title }}
+                </h3>
+                <p class="cta-description">
+                    {{ description }}
+                </p>
             </div>
             <NuxtLink
-                v-if="!linkToExternal"
                 to="/donors"
                 class="cta-button"
             >
                 {{ buttonText }}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
                     <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
                 </svg>
             </NuxtLink>
-            <a
-                v-else
-                href="https://opencollective.com/forthebadge"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="cta-button"
-            >
-                {{ buttonText }}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
-                </svg>
-            </a>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 interface Props {
-    variant?: 'heart' | 'star';
-    title?: string;
-    description?: string;
-    buttonText?: string;
-    linkToExternal?: boolean;
+    variant ?: "heart" | "star";
+    title ?: string;
+    description ?: string;
+    buttonText ?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-    variant: 'heart',
-    title: 'Support For the Badge',
-    description: 'Help us keep the service free, fast, and tracking-free for everyone.',
-    buttonText: 'Donate',
-    linkToExternal: false,
+withDefaults(defineProps<Props>(), {
+    variant: "heart",
+    title: "Support For the Badge",
+    description: "Help us keep the service free, fast, and tracking-free for everyone.",
+    buttonText: "Donate",
 });
 </script>
 

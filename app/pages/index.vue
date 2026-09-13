@@ -2,7 +2,7 @@
     <div class="home-page">
         <!-- Desktop Navigation -->
         <NavBar v-if="!isMobile" />
-        
+
         <!-- Mobile Navigation -->
         <MobileNavBar v-if="isMobile" />
 
@@ -13,80 +13,136 @@
         <section class="opensource-section">
             <!-- Git contribution graph decorations - varied patterns like GitHub -->
             <div class="git-graph git-graph-1">
-                <div v-for="(intensity, i) in [4,3,0,2,4,0,3,2,4,1,0,3,0,2,1,4,3,0,2,0]" :key="'g1-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [4, 3, 0, 2, 4, 0, 3, 2, 4, 1, 0, 3, 0, 2, 1, 4, 3, 0, 2, 0]"
+                    :key="'g1-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
             <div class="git-graph git-graph-2">
-                <div v-for="(intensity, i) in [0,2,3,0,1,4,2,0,3]" :key="'g2-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [0, 2, 3, 0, 1, 4, 2, 0, 3]"
+                    :key="'g2-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
             <div class="git-graph git-graph-3">
-                <div v-for="(intensity, i) in [1,0,4,2,0,3,0,1,4,0,2,3,1,0,0,4,2,0,3,1,0,4,0,2]" :key="'g3-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [1, 0, 4, 2, 0, 3, 0, 1, 4, 0, 2, 3, 1, 0, 0, 4, 2, 0, 3, 1, 0, 4, 0, 2]"
+                    :key="'g3-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
             <div class="git-graph git-graph-4">
-                <div v-for="(intensity, i) in [0,3,4,1,0,2,0,4,3,0,1,2,0,3,0,4,1,2,0,3]" :key="'g4-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [0, 3, 4, 1, 0, 2, 0, 4, 3, 0, 1, 2, 0, 3, 0, 4, 1, 2, 0, 3]"
+                    :key="'g4-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
             <div class="git-graph git-graph-5">
-                <div v-for="(intensity, i) in [2,0,1,4,0,3,2,0,4,1,3,0]" :key="'g5-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [2, 0, 1, 4, 0, 3, 2, 0, 4, 1, 3, 0]"
+                    :key="'g5-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
             <div class="git-graph git-graph-6">
-                <div v-for="(intensity, i) in [3,1,0,4,2,0,0,3,1,4,0,2,3,0,1,4,0,2,0,3,1,0,4,2,0,3,0,1]" :key="'g6-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [3, 1, 0, 4, 2, 0, 0, 3, 1, 4, 0, 2, 3, 0, 1, 4, 0, 2, 0, 3, 1, 0, 4, 2, 0, 3, 0, 1]"
+                    :key="'g6-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
             <div class="git-graph git-graph-7">
-                <div v-for="(intensity, i) in [0,4,0,2,3,0,1,4,0,2,0,3,1,0,4,0]" :key="'g7-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [0, 4, 0, 2, 3, 0, 1, 4, 0, 2, 0, 3, 1, 0, 4, 0]"
+                    :key="'g7-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
             <div class="git-graph git-graph-8">
-                <div v-for="(intensity, i) in [2,3,0,1,0,4,2,0,3,1,4,0,0,2,3,0,1,4,0,2]" :key="'g8-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [2, 3, 0, 1, 0, 4, 2, 0, 3, 1, 4, 0, 0, 2, 3, 0, 1, 4, 0, 2]"
+                    :key="'g8-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
             <div class="git-graph git-graph-9">
-                <div v-for="(intensity, i) in [0,1,3,0,4,2,0,1,0,3,4,0]" :key="'g9-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [0, 1, 3, 0, 4, 2, 0, 1, 0, 3, 4, 0]"
+                    :key="'g9-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
             <div class="git-graph git-graph-10">
-                <div v-for="(intensity, i) in [4,0,2,0,3,1,4,0,0,2,3,0,1,4,2,0]" :key="'g10-'+i" class="git-cell" :class="intensity ? 'intensity-' + intensity : 'empty'"></div>
+                <div
+                    v-for="(intensity, i) in [4, 0, 2, 0, 3, 1, 4, 0, 0, 2, 3, 0, 1, 4, 2, 0]"
+                    :key="'g10-'+i"
+                    class="git-cell"
+                    :class="intensity ? 'intensity-' + intensity : 'empty'"
+                />
             </div>
 
             <div class="section-container">
                 <div class="opensource-content">
                     <div class="opensource-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                        <svg
+                            width="48"
+                            height="48"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
                             <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z" />
                         </svg>
                     </div>
-                    <h2 class="opensource-title">Open Source & Community Driven</h2>
+                    <h2 class="opensource-title">
+                        Open Source & Community Driven
+                    </h2>
                     <p class="opensource-description">
                         For the Badge is proudly open source. Help us improve by contributing code, reporting bugs, or suggesting new badge designs.
                     </p>
                     <div class="opensource-actions">
-                        <a 
-                            href="https://github.com/forthebadge/for-the-badge" 
-                            target="_blank" 
+                        <a
+                            href="https://github.com/forthebadge/for-the-badge"
+                            target="_blank"
                             rel="noopener noreferrer"
                             class="opensource-btn primary"
                         >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
                                 <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z" />
                             </svg>
                             View on GitHub
                         </a>
-                        <a 
-                            href="https://github.com/forthebadge/for-the-badge/issues/new/choose" 
-                            target="_blank" 
+                        <a
+                            href="https://github.com/forthebadge/for-the-badge/issues/new/choose"
+                            target="_blank"
                             rel="noopener noreferrer"
                             class="opensource-btn secondary"
                         >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
                                 <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,7V13H13V7H11M11,15V17H13V15H11Z" />
                             </svg>
                             Open an Issue
-                        </a>
-                        <a 
-                            href="https://opencollective.com/forthebadge" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            class="opensource-btn tertiary"
-                        >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
-                            </svg>
-                            Support Us
                         </a>
                     </div>
                 </div>
@@ -99,7 +155,12 @@
                 <div class="process-grid">
                     <div class="process-step">
                         <div class="step-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
                                 <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
                             </svg>
                         </div>
@@ -108,7 +169,12 @@
                     </div>
                     <div class="process-step">
                         <div class="step-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
                                 <path d="M17.45,15.18L22,7.31V19L22,21H2V3H4V15.54L9.5,6L16,9.78L20.24,2.45L21.97,3.45L16.74,12.5L10.23,8.75L4.31,19H6.57L10.96,11.44L17.45,15.18Z" />
                             </svg>
                         </div>
@@ -117,7 +183,12 @@
                     </div>
                     <div class="process-step">
                         <div class="step-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
                                 <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
                             </svg>
                         </div>
@@ -131,13 +202,22 @@
         <!-- Badge Generation Methods Section -->
         <section class="methods-section">
             <div class="section-container">
-                <h2 class="section-title">Two Ways to Generate Badges</h2>
-                <p class="section-subtitle">Choose what works best for you</p>
+                <h2 class="section-title">
+                    Two Ways to Generate Badges
+                </h2>
+                <p class="section-subtitle">
+                    Choose what works best for you
+                </p>
                 <div class="methods-grid">
                     <!-- Visual Generator -->
                     <div class="method-card">
                         <div class="method-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <svg
+                                width="48"
+                                height="48"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
                                 <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z" />
                             </svg>
                         </div>
@@ -151,7 +231,12 @@
                         </ul>
                         <NuxtLink to="/generator" class="method-btn">
                             Launch Designer
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
                                 <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
                             </svg>
                         </NuxtLink>
@@ -159,7 +244,12 @@
                     <!-- REST API -->
                     <div class="method-card">
                         <div class="method-icon api-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <svg
+                                width="48"
+                                height="48"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
                                 <path d="M3,6H21V8H3V6M3,16H21V18H3V16M3,11H21V13H3V11Z" />
                             </svg>
                         </div>
@@ -173,7 +263,12 @@
                         </ul>
                         <NuxtLink to="/api" class="method-btn">
                             View API Docs
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
                                 <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
                             </svg>
                         </NuxtLink>
@@ -185,8 +280,12 @@
         <!-- Featured Badges Section -->
         <section class="featured-section">
             <div class="section-container">
-                <h2 class="section-title">Featured Badges</h2>
-                <p class="section-subtitle">Hand-picked selection of our most popular badges</p>
+                <h2 class="section-title">
+                    Featured Badges
+                </h2>
+                <p class="section-subtitle">
+                    Hand-picked selection of our most popular badges
+                </p>
 
                 <div class="badges-grid">
                     <div
@@ -203,7 +302,12 @@
                                 title="Download SVG"
                                 @click="downloadBadge(badge)"
                             >
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                >
                                     <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
                                 </svg>
                             </button>
@@ -212,7 +316,12 @@
                                 title="Copy Markdown"
                                 @click="copyBadgeMarkdown(badge)"
                             >
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                >
                                     <path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" />
                                 </svg>
                             </button>
@@ -223,7 +332,12 @@
                 <div class="section-cta">
                     <NuxtLink to="/badges" class="btn-text">
                         View All Badges
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
                             <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
                         </svg>
                     </NuxtLink>
@@ -235,20 +349,32 @@
         <section class="stats-section">
             <div class="stats-container">
                 <div class="big-stat-display">
-                    <div class="stat-number-large" data-target="3000000">3,000,000</div>
+                    <div class="stat-number-large" data-target="3000000">
+                        3,000,000
+                    </div>
                 </div>
-                
-                <h3 class="stats-title">PROJECTS USING FOR THE BADGE</h3>
+
+                <h3 class="stats-title">
+                    PROJECTS USING FOR THE BADGE
+                </h3>
 
                 <div class="mini-stats">
                     <div class="mini-stat">
-                        <div class="mini-number" data-target="100000">100,000</div>
-                        <div class="mini-label">Monthly Visitors</div>
+                        <div class="mini-number" data-target="100000">
+                            100,000
+                        </div>
+                        <div class="mini-label">
+                            Monthly Visitors
+                        </div>
                     </div>
-                    <div class="mini-stat-divider"></div>
+                    <div class="mini-stat-divider" />
                     <div class="mini-stat">
-                        <div class="mini-number" data-target="185">185</div>
-                        <div class="mini-label">Countries Worldwide</div>
+                        <div class="mini-number" data-target="185">
+                            185
+                        </div>
+                        <div class="mini-label">
+                            Countries Worldwide
+                        </div>
                     </div>
                 </div>
 
@@ -273,8 +399,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from 'vue';
-import { isMobileDevice } from '~/utils/deviceDetection';
+import { computed, onMounted, onUnmounted } from "vue";
+
+import { isMobileDevice } from "~/utils/deviceDetection";
 
 const route = useRoute();
 
@@ -285,131 +412,159 @@ interface Badge {
 
 const toast = ref({
     show: false,
-    message: '',
-    type: 'success' as 'success' | 'error' | 'info' | 'warning',
+    message: "",
+    type: "success" as "success" | "error" | "info" | "warning",
 });
 
 // Mobile detection based on user agent
-const isMobile = computed(() => {
-    if (import.meta.client) {
+const isMobile = computed(() =>
+{
+    if (import.meta.client)
+    {
         return isMobileDevice();
     }
+
     return false;
 });
 
 const featuredBadges = ref<Badge[]>([
-    { name: 'Built with Love', path: '/featured/featured-built-with-love.svg' },
-    { name: 'Compatibility Betamax', path: '/featured/featured-compatibility-betamax.svg' },
-    { name: 'Contains Cat Gifs', path: '/featured/featured-contains-cat-gifs.svg' },
-    { name: 'Fuck It Ship It', path: '/featured/featured-fuck-it-ship-it.svg' },
-    { name: 'Gluten Free', path: '/featured/featured-gluten-free.svg' },
-    { name: 'Made with Crayons', path: '/featured/featured-made-with-crayons.svg' },
-    { name: 'Oooo Kill Em', path: '/featured/featured-oooo-kill-em.svg' },
-    { name: 'Powered by Electricity', path: '/featured/featured-powered-by-electricity.svg' },
-    { name: 'Uses Badges', path: '/featured/featured-uses-badges.svg' },
-    { name: 'Uses HTML', path: '/featured/featured-uses-html.svg' },
+    { name: "Built with Love", path: "/featured/featured-built-with-love.svg" },
+    { name: "Compatibility Betamax", path: "/featured/featured-compatibility-betamax.svg" },
+    { name: "Contains Cat Gifs", path: "/featured/featured-contains-cat-gifs.svg" },
+    { name: "Fuck It Ship It", path: "/featured/featured-fuck-it-ship-it.svg" },
+    { name: "Gluten Free", path: "/featured/featured-gluten-free.svg" },
+    { name: "Made with Crayons", path: "/featured/featured-made-with-crayons.svg" },
+    { name: "Oooo Kill Em", path: "/featured/featured-oooo-kill-em.svg" },
+    { name: "Powered by Electricity", path: "/featured/featured-powered-by-electricity.svg" },
+    { name: "Uses Badges", path: "/featured/featured-uses-badges.svg" },
+    { name: "Uses HTML", path: "/featured/featured-uses-html.svg" },
 ]);
 
 // Redirect to account generation page if referrer query parameter is present
-if (route.query.referrer) {
+if (route.query.referrer)
+{
     navigateTo(`/account?referrer=${route.query.referrer}`);
 }
 
-function downloadBadge(badge: Badge) {
-    const a = document.createElement('a');
+function downloadBadge(badge : Badge)
+{
+    const a = document.createElement("a");
     a.href = badge.path;
-    a.download = badge.name.toLowerCase().replace(/\s+/g, '-') + '.svg';
+    a.download = badge.name.toLowerCase().replace(/\s+/g, "-") + ".svg";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    
+
     toast.value = {
         show: true,
-        message: 'Badge downloaded!',
-        type: 'success',
+        message: "Badge downloaded!",
+        type: "success",
     };
 }
 
-function copyBadgeMarkdown(badge: Badge) {
+function copyBadgeMarkdown(badge : Badge)
+{
     const md = `[![forthebadge](${badge.path})](https://forthebadge.com)`;
-    navigator.clipboard.writeText(md).then(() => {
+    navigator.clipboard.writeText(md).then(() =>
+    {
         toast.value = {
             show: true,
-            message: 'Markdown copied to clipboard!',
-            type: 'success',
+            message: "Markdown copied to clipboard!",
+            type: "success",
         };
-    }).catch(() => {
+    }).catch(() =>
+    {
         toast.value = {
             show: true,
-            message: 'Failed to copy markdown',
-            type: 'error',
+            message: "Failed to copy markdown",
+            type: "error",
         };
     });
 }
 
-definePageMeta({
-    layout: false,
-});
+definePageMeta({ layout: false });
 
 // Animate stats when they enter the viewport
-onMounted(() => {
-    if (typeof window === 'undefined') return;
+onMounted(() =>
+{
+    if (typeof window === "undefined")
+    {
+        return;
+    }
 
-    const formatNumber = (n: number) => n.toLocaleString('en-US');
-    let largeCounterInterval: number | null = null;
+    const formatNumber = (n : number) => n.toLocaleString("en-US");
+    let largeCounterInterval : number | null = null;
 
     // Continuous counter for large stat
-    const startContinuousCounter = (el: HTMLElement, baseTarget: number) => {
+    const startContinuousCounter = (el : HTMLElement, baseTarget : number) =>
+    {
         let currentValue = baseTarget;
         el.textContent = formatNumber(currentValue);
-        
-        largeCounterInterval = window.setInterval(() => {
+
+        largeCounterInterval = window.setInterval(() =>
+        {
             currentValue += 1;
             el.textContent = formatNumber(currentValue);
         }, 3000); // Increment every 3 seconds
     };
 
     // One-time animation for mini stats
-    const animate = (el: HTMLElement, target: number, duration = 1500) => {
+    const animate = (el : HTMLElement, target : number, duration = 1500) =>
+    {
         const start = 0;
         const startTime = performance.now();
 
-        const step = (now: number) => {
+        const step = (now : number) =>
+        {
             const progress = Math.min((now - startTime) / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
             const value = Math.floor(start + (target - start) * eased);
             el.textContent = formatNumber(value);
-            if (progress < 1) requestAnimationFrame(step);
+            if (progress < 1)
+            {
+                requestAnimationFrame(step);
+            }
         };
         requestAnimationFrame(step);
     };
 
-    const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+    const observer = new IntersectionObserver((entries, obs) =>
+    {
+        entries.forEach((entry) =>
+        {
+            if (entry.isIntersecting)
+            {
                 const numberEl = entry.target as HTMLElement;
-                const target = Number(numberEl.dataset.target || '0');
-                
-                if (!numberEl.dataset.animated) {
-                    if (numberEl.classList.contains('stat-number-large')) {
+                const target = Number(numberEl.dataset.target || "0");
+
+                if (!numberEl.dataset.animated)
+                {
+                    if (numberEl.classList.contains("stat-number-large"))
+                    {
                         // Continuous counter for main stat
                         startContinuousCounter(numberEl, target);
-                    } else {
+                    }
+                    else
+                    {
                         // One-time animation for mini stats
                         animate(numberEl, target);
                     }
-                    numberEl.dataset.animated = 'true';
+                    numberEl.dataset.animated = "true";
                 }
                 obs.unobserve(numberEl);
             }
         });
     }, { threshold: 0.4 });
 
-    document.querySelectorAll<HTMLElement>('.stat-number-large, .mini-number').forEach((el) => observer.observe(el));
+    document.querySelectorAll<HTMLElement>(".stat-number-large, .mini-number").forEach((el) => observer.observe(el));
 
     // Cleanup on unmount
-    onUnmounted(() => {
-        if (largeCounterInterval) clearInterval(largeCounterInterval);
+    onUnmounted(() =>
+    {
+        if (largeCounterInterval)
+        {
+            clearInterval(largeCounterInterval);
+        }
     });
 });
 </script>
@@ -1009,20 +1164,19 @@ onMounted(() => {
 
 @media (max-width: 768px) {
     .stats-section { padding: 4rem 1.5rem; }
-    .big-stat-display { 
-        padding: 1.25rem 2.5rem; 
+    .big-stat-display {
+        padding: 1.25rem 2.5rem;
         border-radius: 40px;
     }
     .stat-number-large { font-size: clamp(2rem, 10vw, 3rem); }
-    .mini-stats { 
-        flex-direction: column; 
-        gap: 2rem; 
+    .mini-stats {
+        flex-direction: column;
+        gap: 2rem;
     }
-    .mini-stat-divider { 
-        width: 60px; 
-        height: 1px; 
+    .mini-stat-divider {
+        width: 60px;
+        height: 1px;
     }
     .mini-number { font-size: 1.75rem; }
 }
-
 </style>

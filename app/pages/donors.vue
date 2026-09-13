@@ -2,39 +2,52 @@
     <div class="donors-page">
         <!-- Desktop Navigation -->
         <NavBar v-if="!isMobile" />
-        
+
         <!-- Mobile Navigation -->
         <MobileNavBar v-if="isMobile" />
 
         <div class="donors-container">
             <!-- Hero Section -->
             <section class="donors-hero">
-                <h1 class="hero-title">Our Amazing Supporters</h1>
+                <h1 class="hero-title">
+                    Our Amazing Supporters
+                </h1>
                 <p class="hero-subtitle">
                     These wonderful people help keep For the Badge free, fast, and tracking-free for everyone.
                 </p>
                 <div class="hero-stats">
                     <div class="stat-item">
-                        <div class="stat-number">{{ stats.totalDonors }}</div>
-                        <div class="stat-label">Financial Contributors</div>
+                        <div class="stat-number">
+                            {{ stats.totalDonors }}
+                        </div>
+                        <div class="stat-label">
+                            Financial Contributors
+                        </div>
                     </div>
-                    <div class="stat-divider"></div>
+                    <div class="stat-divider" />
                     <div class="stat-item">
-                        <div class="stat-number">${{ stats.totalRaised.toFixed(0) }}</div>
-                        <div class="stat-label">Total Raised</div>
+                        <div class="stat-number">
+                            ${{ stats.totalRaised.toFixed(0) }}
+                        </div>
+                        <div class="stat-label">
+                            Total Raised
+                        </div>
                     </div>
-                    <div class="stat-divider"></div>
+                    <div class="stat-divider" />
                     <div class="stat-item">
-                        <div class="stat-number">{{ githubStats.totalCount }}</div>
-                        <div class="stat-label">GitHub Contributors</div>
+                        <div class="stat-number">
+                            {{ githubStats.totalCount }}
+                        </div>
+                        <div class="stat-label">
+                            GitHub Contributors
+                        </div>
                     </div>
                 </div>
             </section>
 
-
             <!-- Loading State -->
             <div v-if="pending" class="loading-state">
-                <div class="spinner"></div>
+                <div class="spinner" />
                 <p>Loading our amazing supporters...</p>
             </div>
 
@@ -62,18 +75,22 @@
                                     v-if="donor.image"
                                     :src="donor.image"
                                     :alt="donor.name"
-                                />
+                                >
                                 <div v-else class="avatar-placeholder">
                                     {{ donor.name.charAt(0).toUpperCase() }}
                                 </div>
                             </div>
                             <div class="donor-info">
-                                <h3 class="donor-name">{{ donor.name }}</h3>
+                                <h3 class="donor-name">
+                                    {{ donor.name }}
+                                </h3>
                                 <div class="donor-meta">
                                     <span class="donor-tier-badge patron-badge">Patron</span>
                                     <span class="donor-since">Since {{ formatDate(donor.since) }}</span>
                                 </div>
-                                <p v-if="donor.message" class="donor-message">{{ donor.message }}</p>
+                                <p v-if="donor.message" class="donor-message">
+                                    {{ donor.message }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -96,18 +113,22 @@
                                     v-if="donor.image"
                                     :src="donor.image"
                                     :alt="donor.name"
-                                />
+                                >
                                 <div v-else class="avatar-placeholder">
                                     {{ donor.name.charAt(0).toUpperCase() }}
                                 </div>
                             </div>
                             <div class="donor-info">
-                                <h3 class="donor-name">{{ donor.name }}</h3>
+                                <h3 class="donor-name">
+                                    {{ donor.name }}
+                                </h3>
                                 <div class="donor-meta">
                                     <span class="donor-tier-badge supporter-badge">Supporter</span>
                                     <span class="donor-since">Since {{ formatDate(donor.since) }}</span>
                                 </div>
-                                <p v-if="donor.message" class="donor-message">{{ donor.message }}</p>
+                                <p v-if="donor.message" class="donor-message">
+                                    {{ donor.message }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -130,7 +151,7 @@
                                     v-if="donor.image"
                                     :src="donor.image"
                                     :alt="donor.name"
-                                />
+                                >
                                 <div v-else class="avatar-placeholder-small">
                                     {{ donor.name.charAt(0).toUpperCase() }}
                                 </div>
@@ -146,8 +167,13 @@
                         GitHub Contributors
                     </h2>
                     <p class="tier-description">
-                        Amazing developers who have contributed code to our 
-                        <a href="https://github.com/forthebadge/for-the-badge" target="_blank" rel="noopener noreferrer" class="github-link">
+                        Amazing developers who have contributed code to our
+                        <a
+                            href="https://github.com/forthebadge/for-the-badge"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="github-link"
+                        >
                             public repository
                         </a>
                     </p>
@@ -166,70 +192,9 @@
                                 :alt="contributor.login"
                                 class="github-avatar"
                                 loading="lazy"
-                            />
+                            >
                         </a>
                     </div>
-                </div>
-            </section>
-
-            <!-- Call to Action -->
-            <section class="cta-section">
-                <canvas ref="particlesCanvas" class="particles-canvas"></canvas>
-                <div class="cta-content">
-                    <h2 class="cta-title">Join Our Supporters</h2>
-                    <div class="cta-context">
-                        <div class="context-item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M13,14H11V9H13M13,18H11V16H13M1,21H23L12,2L1,21Z" />
-                            </svg>
-                            <div>
-                                <h3>No Tracking</h3>
-                                <p>We never track users, collect analytics, or sell data. Your privacy is paramount.</p>
-                            </div>
-                        </div>
-                        <div class="context-item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z" />
-                            </svg>
-                            <div>
-                                <h3>Forever Free</h3>
-                                <p>Badge generation will always be free for everyone. No premium tiers, no paywalls.</p>
-                            </div>
-                        </div>
-                        <div class="context-item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z" />
-                            </svg>
-                            <div>
-                                <h3>Fully Open Source</h3>
-                                <p>Our code is public, auditable, and community-driven. No hidden agendas.</p>
-                            </div>
-                        </div>
-                        <div class="context-item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                            </svg>
-                            <div>
-                                <h3>No Ads, Ever</h3>
-                                <p>We rely on community support, not advertisers. Keep the web clean.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="cta-description">
-                        Your donation keeps our servers running and helps us maintain independence from big tech. 
-                        Every contribution, no matter the size, makes a real difference.
-                    </p>
-                    <a
-                        href="https://opencollective.com/forthebadge"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="donate-button"
-                    >
-                        Donate on Open Collective
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
-                        </svg>
-                    </a>
                 </div>
             </section>
         </div>
@@ -239,31 +204,33 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onUnmounted } from 'vue';
-import { isMobileDevice } from '~/utils/deviceDetection';
+import { computed, ref, onMounted, onUnmounted } from "vue";
 
-definePageMeta({
-    layout: false,
-});
+import { isMobileDevice } from "~/utils/deviceDetection";
+
+definePageMeta({ layout: false });
 
 useSeoMeta({
-    title: 'Our Supporters - For the Badge',
-    description: 'Meet the amazing people who support For the Badge and help keep it free, fast, and tracking-free for everyone.',
-    ogTitle: 'Our Supporters - For the Badge',
-    ogDescription: 'Meet the amazing people who support For the Badge and help keep it free, fast, and tracking-free for everyone.',
+    title: "Our Supporters - For the Badge",
+    description: "Meet the amazing people who support For the Badge and help keep it free, fast, and tracking-free for everyone.",
+    ogTitle: "Our Supporters - For the Badge",
+    ogDescription: "Meet the amazing people who support For the Badge and help keep it free, fast, and tracking-free for everyone.",
 });
 
-const isMobile = computed(() => {
-    if (import.meta.client) {
+const isMobile = computed(() =>
+{
+    if (import.meta.client)
+    {
         return isMobileDevice();
     }
+
     return false;
 });
 
 interface DonorData {
     name: string;
     slug: string;
-    tier: 'supporter' | 'patron' | 'donor';
+    tier: "supporter" | "patron" | "donor";
     totalAmount: number;
     since: string;
     image: string | null;
@@ -272,7 +239,7 @@ interface DonorData {
 
 interface DonorsResponse {
     donors: DonorData[];
-    stats: {
+    stats : {
         totalDonors: number;
         totalRaised: number;
         currency: string;
@@ -293,40 +260,49 @@ interface GitHubContributorsResponse {
 }
 
 // Fetch donors data
-const { data, pending, error } = await useFetch<DonorsResponse>('/api/donors');
+const { data, pending, error } = await useFetch<DonorsResponse>("/api/donors");
 
 // Fetch GitHub contributors
-const { data: githubData, pending: githubPending, error: githubError } = await useFetch<GitHubContributorsResponse>('/api/github-contributors');
+const { data: githubData, pending: githubPending, error: githubError } = await useFetch<GitHubContributorsResponse>("/api/github-contributors");
 
-const stats = computed(() => data.value?.stats || { totalDonors: 0, totalRaised: 0, currency: 'USD' });
+const stats = computed(() => data.value?.stats || { totalDonors: 0, totalRaised: 0, currency: "USD" });
 const donors = computed(() => data.value?.donors || []);
 const githubStats = computed(() => ({ totalCount: githubData.value?.totalCount || 0 }));
 const githubContributors = computed(() => githubData.value?.contributors || []);
 
-const patrons = computed(() => donors.value.filter(d => d.tier === 'patron'));
-const supporters = computed(() => donors.value.filter(d => d.tier === 'supporter'));
-const otherDonors = computed(() => donors.value.filter(d => d.tier === 'donor'));
+const patrons = computed(() => donors.value.filter((d) => d.tier === "patron"));
+const supporters = computed(() => donors.value.filter((d) => d.tier === "supporter"));
+const otherDonors = computed(() => donors.value.filter((d) => d.tier === "donor"));
 
-function formatDate(dateString: string): string {
+function formatDate(dateString : string) : string
+{
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+
+    return date.toLocaleDateString("en-US", { year: "numeric", month: "short" });
 }
 
 // Particles animation
 const particlesCanvas = ref<HTMLCanvasElement | null>(null);
-let animationId: number;
+let animationId : number;
 
-function initParticles() {
+function initParticles()
+{
     const canvas = particlesCanvas.value;
-    if (!canvas) return;
+    if (!canvas)
+    {
+        return;
+    }
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx)
+    {
+        return;
+    }
 
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    const particles: Array<{
+    const particles : Array<{
         x: number;
         y: number;
         size: number;
@@ -338,17 +314,18 @@ function initParticles() {
 
     const particleCount = 60;
     const rainbowColors = [
-        0,    // Red
-        30,   // Orange
-        60,   // Yellow
-        120,  // Green
-        180,  // Cyan
-        240,  // Blue
-        280,  // Purple
-        320,  // Magenta
+        0, // Red
+        30, // Orange
+        60, // Yellow
+        120, // Green
+        180, // Cyan
+        240, // Blue
+        280, // Purple
+        320, // Magenta
     ];
 
-    for (let i = 0; i < particleCount; i++) {
+    for (let i = 0; i < particleCount; i++)
+    {
         particles.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
@@ -360,12 +337,17 @@ function initParticles() {
         });
     }
 
-    function animate() {
-        if (!canvas || !ctx) return;
-        
+    function animate()
+    {
+        if (!canvas || !ctx)
+        {
+            return;
+        }
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        particles.forEach((particle) => {
+        particles.forEach((particle) =>
+        {
             ctx.fillStyle = `hsla(${particle.hue}, 70%, 60%, ${particle.opacity})`;
             ctx.beginPath();
             ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
@@ -377,8 +359,14 @@ function initParticles() {
             // Slowly shift hue for color animation
             particle.hue = (particle.hue + 0.3) % 360;
 
-            if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
-            if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
+            if (particle.x < 0 || particle.x > canvas.width)
+            {
+                particle.speedX *= -1;
+            }
+            if (particle.y < 0 || particle.y > canvas.height)
+            {
+                particle.speedY *= -1;
+            }
         });
 
         animationId = requestAnimationFrame(animate);
@@ -387,11 +375,15 @@ function initParticles() {
     animate();
 }
 
-onMounted(() => {
-    if (import.meta.client) {
+onMounted(() =>
+{
+    if (import.meta.client)
+    {
         initParticles();
-        window.addEventListener('resize', () => {
-            if (particlesCanvas.value) {
+        window.addEventListener("resize", () =>
+        {
+            if (particlesCanvas.value)
+            {
                 particlesCanvas.value.width = particlesCanvas.value.offsetWidth;
                 particlesCanvas.value.height = particlesCanvas.value.offsetHeight;
             }
@@ -399,8 +391,10 @@ onMounted(() => {
     }
 });
 
-onUnmounted(() => {
-    if (animationId) {
+onUnmounted(() =>
+{
+    if (animationId)
+    {
         cancelAnimationFrame(animationId);
     }
 });
@@ -795,26 +789,6 @@ onUnmounted(() => {
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.donate-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    background: #000000;
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 1.125rem;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.2s;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.donate-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 /* Responsive */
