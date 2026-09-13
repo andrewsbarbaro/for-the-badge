@@ -45,10 +45,6 @@
                         class="nav-link"
                     >API</NuxtLink>
                     <NuxtLink
-                        to="/donors"
-                        class="nav-link"
-                    >Donate</NuxtLink>
-                    <NuxtLink
                         to="/login"
                         class="nav-link"
                     >Sign In</NuxtLink>
@@ -100,12 +96,6 @@
                         class="nav-link"
                     >
                         API
-                    </NuxtLink>
-                    <NuxtLink
-                        to="/donors"
-                        class="nav-link"
-                    >
-                        Donate
                     </NuxtLink>
                     <div class="nav-user-info">
                         <div class="nav-dropdown">

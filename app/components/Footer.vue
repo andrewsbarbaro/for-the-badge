@@ -102,10 +102,6 @@
                             href="/company/contact"
                             class="footer-link"
                         >Contact</a>
-                        <NuxtLink
-                            to="/donors"
-                            class="footer-link"
-                        >Our Supporters</NuxtLink>
                     </div>
 
                     <div class="link-group">

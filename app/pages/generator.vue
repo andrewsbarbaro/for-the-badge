@@ -587,16 +587,6 @@
         </div>
         </div>
 
-        <!-- Support CTA -->
-        <div class="generator-support-cta">
-            <DonationCTA 
-                variant="heart"
-                title="Love For the Badge?"
-                description="Support us to keep the generator free and tracking-free for everyone."
-                buttonText="Learn How"
-            />
-        </div>
-
         <Footer />
         
         <!-- Toast Notification -->
