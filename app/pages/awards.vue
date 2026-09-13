@@ -190,29 +190,6 @@
             </div>
         </section>
 
-        <!-- Founder's Video Section -->
-        <section class="founder-message-section">
-            <div class="section-container">
-                <div class="founder-message-card">
-                    <div class="founder-header">
-                        <div class="founder-avatar">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-                            </svg>
-                        </div>
-                        <div class="founder-info">
-                            <h3>A Message from Our Founder</h3>
-                            <p class="founder-name">Andrew Fernandes Sbarbaro</p>
-                        </div>
-                    </div>
-                    <video controls class="founder-video-player">
-                        <source src="/final_ftb_message.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            </div>
-        </section>
-
         <!-- Stay tuned -->
         <section class="next-year-section">
             <div class="section-container">
@@ -544,35 +521,6 @@ definePageMeta({
 .winner-link:hover {
     transform: translateY(-1px);
     border-color: #000000;
-}
-
-/* Founder */
-.founder-message-section {
-    padding: 6rem 2rem;
-    background: #fafafa;
-}
-
-.founder-message-card {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-}
-
-.founder-message-card .founder-header {
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.founder-message-card .founder-info h3 {
-    color: #111827;
-}
-
-.founder-message-card .founder-name {
-    color: #6b7280;
-    opacity: 1;
 }
 
 /* Next year */
@@ -1119,70 +1067,6 @@ definePageMeta({
 .deadline-text {
     font-size: 1rem;
     opacity: 0.7;
-}
-
-/* Founder's Note Section */
-.founder-note-section {
-    padding: 6rem 2rem;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    color: white;
-}
-
-.founder-note-card {
-    max-width: 900px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(251, 191, 36, 0.3);
-    border-radius: 24px;
-    padding: 3rem;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(251, 191, 36, 0.1);
-}
-
-.founder-header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(251, 191, 36, 0.2);
-}
-
-.founder-avatar {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000000;
-    flex-shrink: 0;
-    box-shadow: 0 4px 16px rgba(251, 191, 36, 0.4);
-}
-
-.founder-info h3 {
-    font-size: 1.75rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-    color: #fbbf24;
-}
-
-.founder-name {
-    font-size: 1.125rem;
-    opacity: 0.9;
-    margin: 0;
-}
-
-.founder-video {
-    width: 100%;
-}
-
-.founder-video-player {
-    width: 100%;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    background: #000000;
 }
 
 /* Sections */
@@ -2164,33 +2048,6 @@ definePageMeta({
         font-size: 1.125rem;
         width: 100%;
         justify-content: center;
-    }
-    
-    .founder-note-card {
-        padding: 2rem 1.5rem;
-    }
-    
-    .founder-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-    
-    .founder-avatar {
-        width: 64px;
-        height: 64px;
-    }
-    
-    .founder-info h3 {
-        font-size: 1.5rem;
-    }
-    
-    .founder-message {
-        font-size: 1rem;
-    }
-    
-    .founder-signature {
-        font-size: 1.25rem;
     }
     
     .countdown-timer {
